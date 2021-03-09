@@ -1,0 +1,50 @@
+# Macro file for N2
+#
+
+##################### G4State_PreInit ###################
+
+################## Kernel initialization ################
+
+/run/initialize
+
+#####################  G4State_Idle #####################
+
+# ================== Verbose settings ==================
+
+/control/verbose 0
+/process/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+# =================== Physics settings ==================
+
+#/process/em/fluo true
+#/process/em/auger true
+#/process/em/augerCascade true
+#/process/em/pixe true
+#/process/em/deexcitationIgnoreCut true
+#/process/em/lowestElectronEnergy 0 eV
+/process/em/printParameters
+
+# ==================== Phantom settings ====================
+
+# Set concentration
+/N2/geometry/SetConcentration 100 ug/g
+/material/g4/printMaterial
+
+# ==================== Beam settings ====================
+
+# Fast Neutron Beam
+/gps/particle neutron
+/control/execute beam/square-beam.mac
+/control/execute beam/fast-neutron.mac
+
+# ================== Scoring settings ===================
+
+/score/create/boxMesh Mesh1
+/score/mesh/boxSize 100 100 100 mm
+/score/mesh/translate/xyz 0 0 0 mm
+/score/mesh/nBin 100 100 100 // x y z
+/score/quantity/energyDeposit eDep
+/score/close
